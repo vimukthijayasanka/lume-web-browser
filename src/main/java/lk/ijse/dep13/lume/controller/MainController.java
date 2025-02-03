@@ -149,6 +149,15 @@ public class MainController {
                 establishConnection(host, port);
                 sendHttpRequest();
                 readHttpResponse();
+            } else {
+                boolean isHtmlContent = false;
+                StringBuilder htmlContent = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null){
+                    // Once we find a blank line, the HTML body should start
+                    isHtmlContent = true;
+                    continue;
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
