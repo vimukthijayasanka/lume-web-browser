@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lk.ijse.dep13.lume.controller.AboutController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="root" prefHeight="346.0" prefWidth="708.0" stylesheets="@../css/About.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep13.lume.controller.AboutController">
+    <children>
+        <ImageView fitHeight="215.0" fitWidth="215.0" layoutX="20.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../img/lume_about_page.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="lblH1" layoutX="284.0" layoutY="20.0" text="LUME Browser" textFill="#4d4b4b">
+            <font>
+                <Font name="Poppins SemiBold" size="48.0" />
+            </font>
+        </Label>
+        <Label fx:id="lblVersion" layoutX="289.0" layoutY="65.0" text="1.0.0" />
+        <Label fx:id="lblReleased" layoutX="337.0" layoutY="65.0" text="Released 2025-02-03" />
+        <Button fx:id="btnGitHub" layoutX="337.0" layoutY="103.0" mnemonicParsing="false" onAction="#btnGitHubOnAction" text="Github link" />
+        <ImageView fitHeight="37.0" fitWidth="42.0" layoutX="286.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../img/github.png" />
+            </image>
+        </ImageView>
+        <TextArea fx:id="txtFieldDescript" editable="false" layoutX="284.0" layoutY="140.0" prefHeight="150.0" prefWidth="405.0" text="Dep-Browser is an educational web browser designed to illustrate &#10;client-server architecture and the workings of the HTTP protocol. &#10;Built with JavaFX, it helps learners understand how web requests, &#10;responses, and redirections function in real-time. &#10;&#10;A perfect tool for exploring the fundamentals of web communication.&#10;">
+            <font>
+                <Font name="Montserrat Medium" size="12.0" />
+            </font>
+        </TextArea>
+        <Label fx:id="lblLicense" layoutX="15.0" layoutY="273.0" onMouseClicked="#lblLicenseOnMouseClicked" text="License Information" />
+        <Pane fx:id="pnAbout" layoutY="300.0" prefHeight="60.0" prefWidth="708.0">
+            <children>
+                <Label layoutX="174.0" layoutY="6.0" text="LUME Browser™ is a trademark of IJSE-DEP13. All rights reserved.">
+                    <font>
+                        <Font name="Montserrat Medium" size="11.0" />
+                    </font>
+                </Label>
+                <Label layoutX="108.0" layoutY="30.0" text="This application is licensed under the MIT License. © IJSE-DEP13, All Rights Reserved.">
+                    <font>
+                        <Font size="11.0" />
+                    </font>
+                </Label>
+                <Line endX="619.0" endY="1.0" layoutX="89.0" layoutY="-1.0" startX="-100.0" />
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>
