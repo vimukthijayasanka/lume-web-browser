@@ -1,0 +1,56 @@
+.root {
+    -fx-background-color: #F5F5F7;
+}
+
+#txtAddress {
+    -fx-max-width: 800px;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-border-color: #D1D1D6;
+    -fx-border-width: 1;
+    -fx-padding: 5 10;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+    -fx-background-color: #FFFFFF;
+    -fx-prompt-text-fill: #A1A1A6;
+    -fx-text-fill: #333;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 4);
+}
+
+#txtAddress:focused {
+    -fx-border-color: #4b4b4b;
+    -fx-background-color: #FFFFFF;
+}
+
+#wbDisplay {
+    -fx-background-color: white;
+    -fx-border-color: #D1D1D6;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+
+.vbox {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+}
+
+#lblLicense{
+    -fx-font-size: 12px;
+    -fx-font-family: "Poppins Light";
+    -fx-text-fill: #242424;
+    -fx-text-alignment: center;
+}
+
+#btnAbout{
+    -fx-background-color: linear-gradient(to right, #598aeb, #296ef3, #1562eb);
+    -fx-text-fill: white;
+    -fx-font-family: Montserrat;
+    -fx-font-size: 11px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 10, 0, 0, 4);
+}
+
+#btnAbout:hover{
+    -fx-background-color: linear-gradient(to right, #4e7dda, #2161df, #145ada);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
