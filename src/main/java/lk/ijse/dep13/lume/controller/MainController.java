@@ -15,6 +15,8 @@ import javafx.stage.StageStyle;
 
 import java.io.*;
 import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 public class MainController {
@@ -158,8 +160,15 @@ public class MainController {
                     isHtmlContent = true;
                     continue;
                 }
+
+                if (isHtmlContent) {
+                    // relative URLs resolving 
+                    if (line.contains("<head>")){
+                        htmlContent.append("<base href=\"%s\"/>".formatted(new URI(protocol, host, path, null).toString())).append("\n");
+                    }
+                }
             }
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }
