@@ -132,6 +132,32 @@ public class MainController {
         }
     }
 
+    private void writeHttpRespond(BufferedReader reader){
+        new Thread(() -> {
+            File file = new File("./httpRespond.txt");
+            FileOutputStream fileOutputStream = null;
+            try {
+                fileOutputStream = new FileOutputStream(file);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            PrintWriter fileWriter = new PrintWriter(fileOutputStream);
+
+            String liner;
+            while (true) {
+                try {
+                    if (!((liner = reader.readLine()) != null)) break;
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                fileWriter.println(liner); // Write to the file
+            }
+            fileWriter.flush(); // Ensure all data is written to the file
+            System.out.println("Request written to file successfully!");
+            fileWriter.close();
+        });
+    }
+
     private void showAlert(Alert.AlertType alertType, String title, String content) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
