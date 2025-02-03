@@ -13,10 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.Objects;
 
@@ -123,6 +120,15 @@ public class MainController {
             os.flush();
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Request Failed", "Failed to send request.");
+        }
+    }
+
+    private void readHttpRequest() {
+        try {
+            InputStream is = remoteSocket.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
