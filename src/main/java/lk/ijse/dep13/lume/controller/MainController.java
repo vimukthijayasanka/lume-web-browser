@@ -50,6 +50,7 @@ public class MainController {
             getInfoUrl(url);
             establishConnection(host, port);
             sendHttpRequest();
+            readHttpResponse();
         } else {
             showAlert(Alert.AlertType.ERROR, "ERROR", "Invalid URL");
         }
@@ -130,8 +131,8 @@ public class MainController {
             InputStream is = remoteSocket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
-            // read and write http respond to a text file
-            writeHttpRespond(reader);
+            // read and write http respond to a text file - WARNING after invoke this method readeLine is null
+//            writeHttpRespond(reader);
 
             // check redirection status
             String statusLine = reader.readLine();
@@ -178,7 +179,6 @@ public class MainController {
     }
 
     private void writeHttpRespond(BufferedReader reader){
-        new Thread(() -> {
             File file = new File("./httpRespond.txt");
             FileOutputStream fileOutputStream = null;
             try {
@@ -200,7 +200,6 @@ public class MainController {
             fileWriter.flush(); // Ensure all data is written to the file
             System.out.println("Request written to file successfully!");
             fileWriter.close();
-        });
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
