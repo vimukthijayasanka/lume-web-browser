@@ -1,0 +1,50 @@
+# Ignore IntelliJ IDEA project files
+.idea/
+*.iml
+*.iws
+out/
+
+# Ignore build files
+/build/
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore dependency caches
+.gradle/
+.mvn/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Logs and temp files
+*.log
+hs_err_pid*
+.DS_Store
+Thumbs.db
+
+# Ignore compiled binaries
+bin/
+**/bin/
+
+# Ignore JavaFX artifacts
+*.jfx
+
+# Ignore generated files
+gen/
+node_modules/
+
+# Ignore OS-specific files
+*.swp
+*.swo
+*~
+
+# Ignore user-specific files
+*.env
+*.properties
+
+# Ignore test reports and coverage data
+/test-results/
+/coverage/
+.idea/
+.vscode/
