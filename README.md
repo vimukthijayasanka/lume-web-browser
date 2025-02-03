@@ -62,6 +62,12 @@ Lume Browser is a lightweight, open-source web browser built using JavaFX. It is
 
 ---
 
+## 🏷️ Version
+
+0.1.0
+
+---
+
 ## 📜 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](license.txt) file for details.
