@@ -13,7 +13,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Objects;
 
@@ -47,6 +50,7 @@ public class MainController {
         if (validateAddress(url)) {
             getInfoUrl(url);
             establishConnection(host, port);
+            sendHttpRequest();
         } else {
             showAlert(Alert.AlertType.ERROR, "ERROR", "Invalid URL");
         }
@@ -100,6 +104,25 @@ public class MainController {
             remoteSocket = new Socket(host, Integer.parseInt(port));
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Connection Failed", "Unable to connect to " + host + ":" + port);
+        }
+    }
+
+    private void sendHttpRequest(){
+        String httpRequest = """
+                GET %s
+                HTTP/1.1
+                Host: %s
+                User-Agent: Lume/1.0.0
+                Accept: text/html,
+                Connection: keep-alive
+                
+                """.formatted(path, host);
+        try {
+            OutputStream os = remoteSocket.getOutputStream();
+            os.write(httpRequest.getBytes());
+            os.flush();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Request Failed", "Failed to send request.");
         }
     }
 
