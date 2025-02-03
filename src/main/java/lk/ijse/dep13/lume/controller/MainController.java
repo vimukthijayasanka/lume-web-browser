@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.Objects;
 
 public class MainController {
@@ -24,6 +25,9 @@ public class MainController {
 
     private String protocol;
     private String path;
+    private String host;
+    private String port;
+    private Socket remoteSocket;
 
     public void initialize() {
         // initially URL set to http://google.com
@@ -42,6 +46,7 @@ public class MainController {
         }
         if (validateAddress(url)) {
             getInfoUrl(url);
+            establishConnection(host, port);
         } else {
             showAlert(Alert.AlertType.ERROR, "ERROR", "Invalid URL");
         }
@@ -57,9 +62,6 @@ public class MainController {
             path = url.substring(url.indexOf("/"));
             url = url.substring(0, url.indexOf("/"));
         }
-
-        String host;
-        String port;
 
         if (url.contains(":")) {
             host = url.substring(0, url.indexOf(":"));
@@ -91,6 +93,14 @@ public class MainController {
             return colonIndex > 0;
         }
         return false;
+    }
+
+    private void establishConnection(String host, String port) {
+        try {
+            remoteSocket = new Socket(host, Integer.parseInt(port));
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Connection Failed", "Unable to connect to " + host + ":" + port);
+        }
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
