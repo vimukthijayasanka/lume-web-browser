@@ -155,18 +155,22 @@ public class MainController {
                 boolean isHtmlContent = false;
                 StringBuilder htmlContent = new StringBuilder();
                 String line;
-                while ((line = reader.readLine()) != null){
-                    // Once we find a blank line, the HTML body should start
-                    isHtmlContent = true;
-                    continue;
-                }
+                while ((line = reader.readLine()) != null) {
+                    if (!isHtmlContent) {
+                        // Once we find a blank line, the HTML body should start
+                        isHtmlContent = true;
+                        continue;
+                    }
 
-                if (isHtmlContent) {
-                    // relative URLs resolving 
-                    if (line.contains("<head>")){
-                        htmlContent.append("<base href=\"%s\"/>".formatted(new URI(protocol, host, path, null).toString())).append("\n");
+                    if (isHtmlContent) {
+                        // relative URLs resolving
+                        if (line.contains("<head>")) {
+                            htmlContent.append("<base href=\"%s\"/>".formatted(new URI(protocol, host, path, null).toString())).append("\n");
+                        }
+                        htmlContent.append(line).append("\n");
                     }
                 }
+                wbDisplay.getEngine().loadContent(htmlContent.toString());
             }
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
