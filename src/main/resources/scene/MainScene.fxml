@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="700.0" stylesheets="@../css/MainSceneCSS.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep13.lume.controller.MainController">
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="700.0" stylesheets="@../css/MainScene.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.dep13.lume.controller.MainController">
     <children>
         <VBox alignment="CENTER" layoutY="43.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
