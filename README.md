@@ -25,7 +25,9 @@ Lume Browser is a lightweight, open-source web browser built using JavaFX. It is
 
 ![HTTP Response in Lume](path/to/screenshot2.png)
 
-> **Note:** Ensure you have JavaFX installed for a smooth experience.
+> [!Note]
+> 
+> Ensure you have JavaFX installed for a smooth experience.
 
 ---
 
