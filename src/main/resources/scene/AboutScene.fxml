@@ -30,7 +30,7 @@
                 <Image url="@../img/github.png" />
             </image>
         </ImageView>
-        <TextArea fx:id="txtFieldDescript" editable="false" layoutX="284.0" layoutY="140.0" prefHeight="150.0" prefWidth="405.0" text="Dep-Browser is an educational web browser designed to illustrate &#10;client-server architecture and the workings of the HTTP protocol. &#10;Built with JavaFX, it helps learners understand how web requests, &#10;responses, and redirections function in real-time. &#10;&#10;A perfect tool for exploring the fundamentals of web communication.&#10;">
+        <TextArea fx:id="txtFieldDescript" editable="false" layoutX="284.0" layoutY="140.0" prefHeight="150.0" prefWidth="413.0" text="Dep-Browser is an educational web browser designed to illustrate &#10;client-server architecture and the workings of the HTTP protocol. &#10;Built with JavaFX, it helps learners understand how web requests, &#10;responses, and redirections function in real-time. &#10;&#10;A perfect tool for exploring the fundamentals of web communication.&#10;">
             <font>
                 <Font name="Montserrat Medium" size="12.0" />
             </font>
@@ -43,7 +43,7 @@
                         <Font name="Montserrat Medium" size="11.0" />
                     </font>
                 </Label>
-                <Label layoutX="108.0" layoutY="30.0" text="This application is licensed under the MIT License. © IJSE-DEP13, All Rights Reserved.">
+                <Label alignment="CENTER" layoutX="139.0" layoutY="30.0" text="This application is licensed under the MIT License. © IJSE-DEP13, All Rights Reserved.">
                     <font>
                         <Font size="11.0" />
                     </font>

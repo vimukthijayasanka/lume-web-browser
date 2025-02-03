@@ -27,7 +27,7 @@ public class MainController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.centerOnScreen();
         stage.resizableProperty().setValue(false);
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/scene/About.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/scene/AboutScene.fxml")));
         stage.setScene(scene);
         stage.show();
     }

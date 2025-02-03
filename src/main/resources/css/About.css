@@ -1,0 +1,66 @@
+#root{
+    -fx-background-color: white;
+}
+
+#lblH1{
+    -fx-font-family: "Poppins ExtraBold";
+    -fx-text-fill: #353535;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+
+#lblLicense{
+    -fx-font-family: "Montserrat";
+    -fx-text-fill: #2684cd;
+    -fx-font-weight: bold;
+    -fx-text-size: 12px;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+#lblLicense:hover{
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+#lblVersion{
+    -fx-font-family: "Montserrat";
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-text-fill: #3e3d3d;
+}
+
+#lblReleased{
+    -fx-font-family: "Montserrat";
+    -fx-font-style: italic;
+    -fx-text-size: 12px;
+    -fx-text-fill: #4d4c4c;
+}
+
+#btnGitHub{
+    -fx-font-family: "Montserrat";
+    -fx-background-radius: 15px;
+    -fx-background-color: linear-gradient(to right, #949494,white);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 0, 2);
+    -fx-transition: 0.3s ease-in-out;
+}
+#btnGitHub:hover{
+    -fx-background-color: linear-gradient(to right, #797979,white);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 8, 0, 0, 3);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+#pnAbout{
+    -fx-background-color: linear-gradient(to bottom, #e6e6e6, #cacaca);
+}
+
+#txtFieldDescript{
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-font-size: 12px;
+    -fx-font-family: "Montserrat Light";
+    -fx-text-fill: #565555;
+    -fx-text-alignment: justify;
+}
