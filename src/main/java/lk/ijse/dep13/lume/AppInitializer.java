@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class AppInitializer extends Application {
 
@@ -15,7 +16,7 @@ public class AppInitializer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/scene/MainScene.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/scene/MainScene.fxml"))));
         primaryStage.setScene(scene);
         primaryStage.setTitle("Lume Web");
         primaryStage.show();
