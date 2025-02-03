@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MainController {
     public AnchorPane root;
@@ -21,7 +22,8 @@ public class MainController {
     public WebView wbDisplay;
     public Button btnAbout;
 
-    private String url;
+    private String protocol;
+    private String path;
 
     public void initialize() {
         // initially URL set to http://google.com
@@ -33,8 +35,11 @@ public class MainController {
     }
 
     public void txtAddressOnAction(ActionEvent actionEvent) {
-        url = txtAddress.getText();
-        if (url == null || url.isEmpty()) showAlert(Alert.AlertType.WARNING, "WARNING", "URL can't be empty");
+        String url = txtAddress.getText();
+        if (url == null || url.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "WARNING", "URL can't be empty");
+            return;
+        }
         if (validateAddress(url)) {
             getInfoUrl(url);
         } else {
@@ -43,19 +48,49 @@ public class MainController {
     }
 
     private void getInfoUrl(String url) {
-        
+        if (url.contains("://")) {
+            protocol = url.substring(0, url.indexOf("://"));
+            url = url.substring(url.indexOf("://") + 3);
+        }
+
+        if (url.contains("/")) {
+            path = url.substring(url.indexOf("/"));
+            url = url.substring(0, url.indexOf("/"));
+        }
+
+        String host;
+        String port;
+
+        if (url.contains(":")) {
+            host = url.substring(0, url.indexOf(":"));
+            port = url.substring(url.indexOf(":") + 1);
+
+        } else {
+            host = url;
+            port = protocol.equals("https") ? "443" : "80";
+        }
+
+        if (!host.startsWith("www.") && !host.contains("localhost")) {
+            host = "www." + host;
+        }
+
+        System.out.printf("""
+                Protocol: %s
+                Host: %s
+                Port: %s
+                Path: %s
+                %n""", protocol, host, port, path);
     }
 
     private boolean validateAddress(String address) {
-        if (url == null || url.isEmpty()) return false;
-        if (url.startsWith("http://") || url.startsWith("https://")) return true;
-        if (!url.contains("://") && url.contains(".")) return true;
-        if (url.contains("://")) {
-            int colonIndex = url.indexOf(":", url.indexOf("://") + 3);
-            if (colonIndex > 0) return true;
-            return false;
+        if (address == null || address.isEmpty()) return false;
+        if (address.contains("http://")) return true;
+        if (!address.contains("://") && address.contains(".")) return true;
+        if (address.contains("://")) {
+            int colonIndex = address.indexOf(":", address.indexOf("://") + 3);
+            return colonIndex > 0;
         }
-        else return false;
+        return false;
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
@@ -70,7 +105,7 @@ public class MainController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.centerOnScreen();
         stage.resizableProperty().setValue(false);
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/scene/AboutScene.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/scene/AboutScene.fxml"))));
         stage.setScene(scene);
         stage.show();
     }
