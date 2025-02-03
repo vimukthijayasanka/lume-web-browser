@@ -123,7 +123,7 @@ public class MainController {
         }
     }
 
-    private void readHttpRequest() {
+    private void readHttpResponse() {
         try {
             InputStream is = remoteSocket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -135,6 +135,21 @@ public class MainController {
             String statusLine = reader.readLine();
             String statusCode = statusLine.split(" ")[1];
 
+            // I refer this to check headers of 300 redirects status httpRespond - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/308
+            if (Integer.parseInt(statusCode) >= 300 && Integer.parseInt(statusCode) < 400) {
+                String line;
+                String url = null;
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith("Location:")) {
+                        url = line.substring(line.indexOf(":") + 1).strip();
+                        break;
+                    }
+                }
+                getInfoUrl(url);
+                establishConnection(host, port);
+                sendHttpRequest();
+                readHttpResponse();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
