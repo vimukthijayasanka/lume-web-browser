@@ -157,7 +157,7 @@ public class MainController {
                 StringBuilder htmlContent = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    if (!isHtmlContent) {
+                    if (!isHtmlContent && line.isBlank()) {
                         // Once we find a blank line, the HTML body should start
                         isHtmlContent = true;
                         continue;
