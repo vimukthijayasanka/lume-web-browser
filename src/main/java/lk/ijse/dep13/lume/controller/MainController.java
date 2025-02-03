@@ -13,11 +13,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 public class MainController {
@@ -51,6 +50,7 @@ public class MainController {
             getInfoUrl(url);
             establishConnection(host, port);
             sendHttpRequest();
+            readHttpResponse();
         } else {
             showAlert(Alert.AlertType.ERROR, "ERROR", "Invalid URL");
         }
@@ -124,6 +124,82 @@ public class MainController {
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Request Failed", "Failed to send request.");
         }
+    }
+
+    private void readHttpResponse() {
+        try {
+            InputStream is = remoteSocket.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+
+            // read and write http respond to a text file - WARNING after invoke this method readeLine is null
+//            writeHttpRespond(reader);
+
+            // check redirection status
+            String statusLine = reader.readLine();
+            String statusCode = statusLine.split(" ")[1];
+
+            // I refer this to check headers of 300 redirects status httpRespond - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/308
+            if (Integer.parseInt(statusCode) >= 300 && Integer.parseInt(statusCode) < 400) {
+                String line;
+                String url = null;
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith("Location:")) {
+                        url = line.substring(line.indexOf(":") + 1).strip();
+                        break;
+                    }
+                }
+                getInfoUrl(url);
+                establishConnection(host, port);
+                sendHttpRequest();
+                readHttpResponse();
+            } else {
+                boolean isHtmlContent = false;
+                StringBuilder htmlContent = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (!isHtmlContent && line.isBlank()) {
+                        // Once we find a blank line, the HTML body should start
+                        isHtmlContent = true;
+                        continue;
+                    }
+
+                    if (isHtmlContent) {
+                        // relative URLs resolving
+                        if (line.contains("<head>")) {
+                            htmlContent.append("<base href=\"%s\"/>".formatted(new URI(protocol, host, path, null).toString())).append("\n");
+                        }
+                        htmlContent.append(line).append("\n");
+                    }
+                }
+                wbDisplay.getEngine().loadContent(htmlContent.toString());
+            }
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void writeHttpRespond(BufferedReader reader){
+            File file = new File("./httpRespond.txt");
+            FileOutputStream fileOutputStream = null;
+            try {
+                fileOutputStream = new FileOutputStream(file);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            PrintWriter fileWriter = new PrintWriter(fileOutputStream);
+
+            String liner;
+            while (true) {
+                try {
+                    if (!((liner = reader.readLine()) != null)) break;
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                fileWriter.println(liner); // Write to the file
+            }
+            fileWriter.flush(); // Ensure all data is written to the file
+            System.out.println("Request written to file successfully!");
+            fileWriter.close();
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
