@@ -126,7 +126,15 @@ public class MainController {
     private void readHttpRequest() {
         try {
             InputStream is = remoteSocket.getInputStream();
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+
+            // read and write http respond to a text file
+            writeHttpRespond(reader);
+
+            // check redirection status
+            String statusLine = reader.readLine();
+            String statusCode = statusLine.split(" ")[1];
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
