@@ -19,11 +19,11 @@ Lume Browser is a lightweight, open-source web browser built using JavaFX. It is
 
 ### Main Interface
 
-![Lume Browser Main UI](path/to/screenshot1.png)
+![Lume Browser Main UI](src/main/resources/img/screenshot/screenshot_1.png)
 
-### HTTP Response View
+### About Window Interface
 
-![HTTP Response in Lume](path/to/screenshot2.png)
+![HTTP Response in Lume](src/main/resources/img/screenshot/screenshot_3.png)
 
 > [!Note]
 > 
