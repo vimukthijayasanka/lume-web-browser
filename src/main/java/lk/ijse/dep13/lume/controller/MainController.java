@@ -172,6 +172,15 @@ public class MainController {
                     }
                 }
                 wbDisplay.getEngine().loadContent(htmlContent.toString());
+
+                // change the title of search bar according to browsing page
+                wbDisplay.getEngine().documentProperty().addListener((obs, oldDoc, newDoc) -> {
+                    if (newDoc != null) {
+                        String title = wbDisplay.getEngine().getTitle();
+                        Platform.runLater(() ->
+                                txtAddress.setText(title));
+                    }
+                });
             }
         } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
