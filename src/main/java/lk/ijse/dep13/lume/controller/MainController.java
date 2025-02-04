@@ -136,7 +136,19 @@ public class MainController {
 
             // check redirection status
             String statusLine = reader.readLine();
-            String statusCode = statusLine.split(" ")[1];
+            // Null check to prevent NullPointerException
+            if (statusLine == null) {
+                showAlert(Alert.AlertType.ERROR, "Error", "No response from server.");
+                return;
+            }
+
+            String[] statusParts = statusLine.split(" ");
+            if (statusParts.length < 2) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Invalid response from server.");
+                return;
+            }
+
+            String statusCode = statusParts[1];
 
             // I refer this to check headers of 300 redirects status httpRespond - https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/308
             if (Integer.parseInt(statusCode) >= 300 && Integer.parseInt(statusCode) < 400) {
@@ -200,7 +212,7 @@ public class MainController {
             String liner;
             while (true) {
                 try {
-                    if (!((liner = reader.readLine()) != null)) break;
+                    if ((liner = reader.readLine()) == null) break;
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -218,7 +230,7 @@ public class MainController {
         alert.showAndWait();
     }
 
-    public void btnAboutOnAction(ActionEvent actionEvent) throws IOException {
+    public void btnAboutOnAction() throws IOException {
         Stage stage = new Stage(StageStyle.UTILITY);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.centerOnScreen();
