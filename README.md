@@ -64,7 +64,7 @@ Lume Browser is a lightweight, open-source web browser built using JavaFX. It is
 
 ## 🏷️ Version
 
-0.2.1
+1.0.0
 
 ---
 
